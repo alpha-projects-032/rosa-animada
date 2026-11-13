@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rosa Animada - Para ti</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <main class="app">
+    <section class="scene" aria-label="Animación de una rosa roja floreciendo">
+      <svg
+        id="roseSvg"
+        viewBox="0 0 500 760"
+        role="img"
+        aria-labelledby="roseTitle roseDesc"
+      >
+        <title id="roseTitle">Rosa roja animada</title>
+        <desc id="roseDesc">
+          Una rosa roja intensa florece lentamente sobre un fondo negro y gira suavemente.
+        </desc>
+
+        <defs>
+          <linearGradient id="stemGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#3ea85f" />
+            <stop offset="50%" stop-color="#1d7d3b" />
+            <stop offset="100%" stop-color="#0c4a21" />
+          </linearGradient>
+
+          <linearGradient id="leafGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#45c56e" />
+            <stop offset="60%" stop-color="#1f8b46" />
+            <stop offset="100%" stop-color="#0e5b2c" />
+          </linearGradient>
+
+          <radialGradient id="petalGradientOuter" cx="50%" cy="40%" r="70%">
+            <stop offset="0%" stop-color="#ff7189" />
+            <stop offset="35%" stop-color="#ff2f56" />
+            <stop offset="75%" stop-color="#d80d35" />
+            <stop offset="100%" stop-color="#7c001b" />
+          </radialGradient>
+
+          <radialGradient id="petalGradientInner" cx="50%" cy="40%" r="75%">
+            <stop offset="0%" stop-color="#ff9db0" />
+            <stop offset="30%" stop-color="#ff5e7f" />
+            <stop offset="70%" stop-color="#e11745" />
+            <stop offset="100%" stop-color="#86001d" />
+          </radialGradient>
+
+          <radialGradient id="glowGradient" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="rgba(255,80,120,0.95)" />
+            <stop offset="70%" stop-color="rgba(255,40,90,0.25)" />
+            <stop offset="100%" stop-color="rgba(255,0,70,0)" />
+          </radialGradient>
+
+          <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="5" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+
+          <filter id="strongGlow" x="-80%" y="-80%" width="260%" height="260%">
+            <feGaussianBlur stdDeviation="10" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        <!-- Luz de fondo -->
+        <g id="ambientLight">
+          <ellipse
+            cx="250"
+            cy="250"
+            rx="120"
+            ry="135"
+            fill="url(#glowGradient)"
+            opacity="0.30"
+            filter="url(#strongGlow)"
+          ></ellipse>
+        </g>
+
+        <!-- Partículas -->
+        <g id="sparkles"></g>
+
+        <!-- Grupo principal de la rosa -->
+        <g id="roseContainer" transform="translate(250 405)">
+          <!-- Tallo -->
+          <g id="stemGroup">
+            <path
+              id="stem"
+              d="M 0 245 C -8 175, 12 95, 0 20"
+              fill="none"
+              stroke="url(#stemGradient)"
+              stroke-width="14"
+              stroke-linecap="round"
+              filter="url(#softGlow)"
+            ></path>
+
+            <!-- Espinas -->
+            <path
+              class="thorn"
+              d="M -2 180 L -22 166 L -4 160"
+            ></path>
+            <path
+              class="thorn"
+              d="M 3 130 L 22 118 L 5 110"
+            ></path>
+          </g>
+
+          <!-- Hojas -->
+          <g id="leavesGroup">
+            <g class="leaf leaf-left" transform="translate(-10,145) rotate(-25)">
+              <path
+                d="M 0 0
+                   C -52 -14, -86 12, -105 42
+                   C -72 56, -34 43, -6 12
+                   C -3 9, -1 5, 0 0 Z"
+                fill="url(#leafGradient)"
+                filter="url(#softGlow)"
+              ></path>
+              <path
+                d="M -96 41 C -60 28, -30 18, -4 6"
+                fill="none"
+                stroke="rgba(255,255,255,0.22)"
+                stroke-width="2"
+              ></path>
+            </g>
+
+            <g class="leaf leaf-right" transform="translate(8,95) rotate(20)">
+              <path
+                d="M 0 0
+                   C 54 -12, 88 14, 108 42
+                   C 74 58, 35 43, 5 12
+                   C 3 8, 1 4, 0 0 Z"
+                fill="url(#leafGradient)"
+                filter="url(#softGlow)"
+              ></path>
+              <path
+                d="M 98 41 C 61 28, 31 18, 4 6"
+                fill="none"
+                stroke="rgba(255,255,255,0.22)"
+                stroke-width="2"
+              ></path>
+            </g>
+          </g>
+
+          <!-- Base del capullo -->
+          <g id="sepalGroup" transform="translate(0,20)">
+            <path class="sepal" d="M 0 0 C -14 -12, -26 -18, -36 -42 C -13 -32, -4 -22, 0 -8 Z"></path>
+            <path class="sepal" d="M 0 0 C 14 -12, 26 -18, 36 -42 C 13 -32, 4 -22, 0 -8 Z"></path>
+            <path class="sepal" d="M 0 0 C -6 -16, -8 -28, 0 -50 C 8 -28, 6 -16, 0 -8 Z"></path>
+          </g>
+
+          <!-- Pétalos -->
+          <g id="petalsOuter"></g>
+          <g id="petalsMiddle"></g>
+          <g id="petalsInner"></g>
+
+          <!-- Centro -->
+          <g id="budCore">
+            <ellipse
+              cx="0"
+              cy="-8"
+              rx="20"
+              ry="30"
+              fill="url(#petalGradientInner)"
+              filter="url(#softGlow)"
+            ></ellipse>
+          </g>
+        </g>
+      </svg>
+
+      <div class="message" id="message">Para ti</div>
+    </section>
+  </main>
+
+  <script src="/js/script.js"></script>
+</body>
+</html>
